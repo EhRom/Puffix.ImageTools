@@ -2,6 +2,8 @@
 
 **Puffix Image tools** is a simple console app used to process image files.
 
+[![Build and package](https://github.com/EhRom/Puffix.ImageTools/actions/workflows/build-and-package.yml/badge.svg)](https://github.com/EhRom/Puffix.ImageTools/actions/workflows/build-and-package.yml)
+
 Two actions are available:
 
 - Convert SVG images to PNG image files
