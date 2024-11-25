@@ -3,6 +3,7 @@ using Puffix.ConsoleLogMagnifier;
 using Puffix.ImageTools.Infra;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 
 namespace Puffix.ImageTools.Domain;
@@ -45,6 +46,8 @@ public abstract class ImageService(IConfiguration configuration, IFileService fi
     {
         string searchPattern = $"{BASE_SEARCH_PATTERN}{fileExtension}";
 
+        Stopwatch stopwatch = Stopwatch.StartNew();
+
         ConsoleHelper.Write($"List the {fileExtension} files in the '{inputDirectoryPath}' directory.");
 
         IEnumerable<string> filesToConvert = fileService.ListFiles(inputDirectoryPath, searchPattern);
@@ -72,7 +75,9 @@ public abstract class ImageService(IConfiguration configuration, IFileService fi
             }
         }
 
-        ConsoleHelper.Write(ConsoleColor.Magenta, $"{processedFiles} files on {filesToConvert.Count()} processed.");
+        stopwatch.Stop();
+
+        ConsoleHelper.Write(ConsoleColor.Magenta, $"{processedFiles} files on {filesToConvert.Count()} processed in {stopwatch}.");
     }
 
     protected abstract void ProcessImage(string inImagePath, string outImagePath);
