@@ -3,7 +3,6 @@ using Puffix.ConsoleLogMagnifier;
 using Puffix.ImageTools.Domain;
 using Puffix.ImageTools.Infra;
 using System;
-using System.Drawing;
 using System.IO;
 
 ConsoleHelper.WriteInfo("Welcome to the Puffix.ImageTools console.");
@@ -43,12 +42,15 @@ do
     ConsoleHelper.ClearLastCharacters(1);
     ConsoleHelper.ClearLastLines(3);
 
+    ConsoleHelper.WriteNewLine(2);
+
     if (consoleKey == ConsoleKey.S)
     {
         ConsoleHelper.WriteInfo("Convert SVG files to PNG");
         ConsoleHelper.WriteNewLine();
 
         IConvertSvgToPngService convertSvgToPngService = container.Resolve<IConvertSvgToPngService>();
+
         convertSvgToPngService.ConvertSvgToPng();
         ConsoleHelper.WriteNewLine(2);
     }
@@ -58,9 +60,6 @@ do
 
         IChangeImageColorService changeImageColorService = container.Resolve<IChangeImageColorService>();
         ConsoleHelper.WriteNewLine();
-        //string colorValue = container.Configuration["color"];
-        //string imagePath = container.Configuration["imageFilePath"];
-        //string outImagePath = container.Configuration["outIimageFilePath"];
 
         changeImageColorService.ChangePngImageColor();
         ConsoleHelper.WriteNewLine(2);
