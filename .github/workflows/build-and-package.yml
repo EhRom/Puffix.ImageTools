@@ -12,7 +12,7 @@ env:
   APP_NAME: Puffix.ImageTools
 
 jobs:
-  build-linux:
+  build:
 
     runs-on: ubuntu-latest
 
@@ -46,38 +46,38 @@ jobs:
       uses: actions/upload-artifact@v4
       with: 
         name: ${{ env.APP_NAME }}-package
-        path: '.\${{ env.APP_NAME }}-package'
+        path: '${{ env.APP_NAME }}-package'
         
-  build-windows:
+  # build-windows:
 
-    runs-on: windows-latest
+  #   runs-on: windows-latest
 
-    steps:
-    - uses: actions/checkout@v4
+  #   steps:
+  #   - uses: actions/checkout@v4
   
-    - name: Setup .NET Core
-      uses: actions/setup-dotnet@v4
-      with:
-        dotnet-version: ${{ env.DOTNET_VERSION }}
+  #   - name: Setup .NET Core
+  #     uses: actions/setup-dotnet@v4
+  #     with:
+  #       dotnet-version: ${{ env.DOTNET_VERSION }}
 
-    - name: Build
-      run: dotnet build ./Puffix.ImageTools/Puffix.ImageTools.csproj --configuration 'Release'
+  #   - name: Build
+  #     run: dotnet build ./Puffix.ImageTools/Puffix.ImageTools.csproj --configuration 'Release'
 
-    - name: Publish
-      run: dotnet publish ./Puffix.ImageTools/Puffix.ImageTools.csproj --runtime linux-x64 --self-contained true --output './out/linux-x64'
+  #   - name: Publish
+  #     run: dotnet publish ./Puffix.ImageTools/Puffix.ImageTools.csproj --runtime linux-x64 --self-contained true --output './out/linux-x64'
       
-    - name: Publish
-      run: dotnet publish ./Puffix.ImageTools/Puffix.ImageTools.csproj --runtime win-x64 --self-contained true --output './out/win-x64'
+  #   - name: Publish
+  #     run: dotnet publish ./Puffix.ImageTools/Puffix.ImageTools.csproj --runtime win-x64 --self-contained true --output './out/win-x64'
       
-    - name: Package
-      run: |
-        md "${{ env.APP_NAME }}-package/"
+  #   - name: Package
+  #     run: |
+  #       md "${{ env.APP_NAME }}-package/"
         
-        cp /y ./out/* ${{ env.APP_NAME }}-package/
+  #       cp /y ./out/* ${{ env.APP_NAME }}-package/
         
-    - name: Upload
-      uses: actions/upload-artifact@v4
-      with: 
-        name: ${{ env.APP_NAME }}-package-win
-        path: '.\${{ env.APP_NAME }}-package-win'
+  #   - name: Upload
+  #     uses: actions/upload-artifact@v4
+  #     with: 
+  #       name: ${{ env.APP_NAME }}-package-win
+  #       path: '.\${{ env.APP_NAME }}-package-win'
 
