@@ -69,8 +69,8 @@ jobs:
     - name: Package
       run: |
         md "${{ env.APP_NAME }}-package/"
-
-        ls -R ./out/
+        
+        dir
 
         cp -a ./out/linux-x64/. ${{ env.APP_NAME }}-package/linux-x64/
         cp -a ./out/win-x64/. ${{ env.APP_NAME }}-package/win-x64/
