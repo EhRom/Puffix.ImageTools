@@ -12,41 +12,41 @@ env:
   APP_NAME: io.puffix.imagetools
 
 jobs:
-  build-linux:
+  # build-linux:
 
-    runs-on: ubuntu-latest
+  #   runs-on: ubuntu-latest
 
-    steps:
-    - uses: actions/checkout@v4
+  #   steps:
+  #   - uses: actions/checkout@v4
   
-    - name: Setup .NET Core
-      uses: actions/setup-dotnet@v4
-      with:
-        dotnet-version: ${{ env.DOTNET_VERSION }}
+  #   - name: Setup .NET Core
+  #     uses: actions/setup-dotnet@v4
+  #     with:
+  #       dotnet-version: ${{ env.DOTNET_VERSION }}
 
-    - name: Build
-      run: dotnet build --configuration 'Release'
+  #   - name: Build
+  #     run: dotnet build --configuration 'Release'
       
-    - name: Publish
-      run: dotnet publish --runtime linux-x64 --self-contained true --output './out/linux-x64'
+  #   - name: Publish
+  #     run: dotnet publish --runtime linux-x64 --self-contained true --output './out/linux-x64'
       
-    - name: Publish
-      run: dotnet publish --runtime linux-x64 --self-contained true --output './out/win-x64'
+  #   - name: Publish
+  #     run: dotnet publish --runtime linux-x64 --self-contained true --output './out/win-x64'
 
-    - name: Package
-      run: |
-        mkdir "${{ env.APP_NAME }}-package/"
+  #   - name: Package
+  #     run: |
+  #       mkdir "${{ env.APP_NAME }}-package/"
 
-        ls -R ./out/
+  #       ls -R ./out/
 
-        cp -a ./out/linux-x64/. ${{ env.APP_NAME }}-package/linux-x64/
-        cp -a ./out/win-x64/. ${{ env.APP_NAME }}-package/win-x64/
+  #       cp -a ./out/linux-x64/. ${{ env.APP_NAME }}-package/linux-x64/
+  #       cp -a ./out/win-x64/. ${{ env.APP_NAME }}-package/win-x64/
 
-    - name: Upload
-      uses: actions/upload-artifact@v4
-      with: 
-        name: ${{ env.APP_NAME }}-package-linux-x64
-        path: '.\${{ env.APP_NAME }}-package-linux-x64'
+  #   - name: Upload
+  #     uses: actions/upload-artifact@v4
+  #     with: 
+  #       name: ${{ env.APP_NAME }}-package
+  #       path: '.\${{ env.APP_NAME }}-package'
         
   build-windows:
 
@@ -68,13 +68,16 @@ jobs:
       
     - name: Package
       run: |
-        md "${{ env.APP_NAME }}-package-win-x64/"
+        md "${{ env.APP_NAME }}-package/"
 
-        cp './bin/Release/out/win-x64-self/*' ${{ env.APP_NAME }}-package-win-x64/
+        ls -R ./out/
 
+        cp -a ./out/linux-x64/. ${{ env.APP_NAME }}-package/linux-x64/
+        cp -a ./out/win-x64/. ${{ env.APP_NAME }}-package/win-x64/
+        
     - name: Upload
       uses: actions/upload-artifact@v4
       with: 
-        name: ${{ env.APP_NAME }}-package-win-x64
-        path: '.\${{ env.APP_NAME }}-package-xin-x64'
+        name: ${{ env.APP_NAME }}-package
+        path: '.\${{ env.APP_NAME }}-package'
 
