@@ -28,15 +28,19 @@ jobs:
       run: dotnet build --configuration 'Release'
       
     - name: Publish
-      run: dotnet publish --runtime linux-x64 --self-contained true --output './bin/Release/out/linux-x64-self'
+      run: dotnet publish --runtime linux-x64 --self-contained true --output './out/linux-x64'
       
+    - name: Publish
+      run: dotnet publish --runtime linux-x64 --self-contained true --output './out/win-x64'
+
     - name: Package
       run: |
-        mkdir "${{ env.APP_NAME }}-package-linux-x64/"
+        mkdir "${{ env.APP_NAME }}-package/"
 
-        ls -R
+        ls -R ./out/
 
-        cp './bin/Release/out/linux-x64-self/*' ${{ env.APP_NAME }}-package-linux-x64/
+        cp -a ./out/linux-x64/. ${{ env.APP_NAME }}-package/linux-x64/
+        cp -a ./out/win-x64/. ${{ env.APP_NAME }}-package/win-x64/
 
     - name: Upload
       uses: actions/upload-artifact@v4
