@@ -51,7 +51,8 @@ jobs:
         gh --version
 
         gh release list
-
+        echo "run id:"
+        echo $GITHUB_RUN_ID
         # gh release create v0.0.2 --target main --generate-notes --latest=false ${{ env.APP_NAME }}-package-${{ env.PACKAGE_VERSION }}/*
 
         ls -R
