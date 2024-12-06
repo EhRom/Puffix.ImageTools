@@ -47,4 +47,10 @@ jobs:
       with: 
         name: ${{ env.APP_NAME }}-package-${{ env.PACKAGE_VERSION }}
         path: '${{ env.APP_NAME }}-package-${{ env.PACKAGE_VERSION }}'
+
+    - name: Create release
+      run: |
+        h release create v0.0.1 --generate-notes ${{ env.APP_NAME }}-package/*
+      env:
+        GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
      
