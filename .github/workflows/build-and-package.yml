@@ -35,11 +35,8 @@ jobs:
 
     - name: Package
       run: |
-        # mkdir "${{ env.APP_NAME }}-package-${{ env.PACKAGE_VERSION }}/"
+        mkdir "${{ env.APP_NAME }}-package-${{ env.PACKAGE_VERSION }}/"
         
-        # mkdir "${{ env.APP_NAME }}-package-${{ env.PACKAGE_VERSION }}/"
-        
-
         cp -a ./out/linux-x64/. ${{ env.APP_NAME }}-package-${{ env.PACKAGE_VERSION }}/linux-x64/
         cp -a ./out/win-x64/. ${{ env.APP_NAME }}-package-${{ env.PACKAGE_VERSION }}/win-x64/
 
