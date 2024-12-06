@@ -48,7 +48,14 @@ jobs:
 
     - name: Create release
       run: |
+        gh --version
+
         gh release list
+
+        gh release create v0.0.1 --generate-notes --latest=false
+
+        ls -R
+
         #--generate-notes ${{ env.APP_NAME }}-package-${{ env.PACKAGE_VERSION }}/*
       env:
         GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
