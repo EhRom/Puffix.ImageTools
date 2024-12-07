@@ -33,8 +33,15 @@ jobs:
     - name: Publish
       run: dotnet publish ./Puffix.ImageTools/Puffix.ImageTools.csproj --runtime win-x64 --self-contained true --output './out/win-x64'
 
-    - name: Package
+    - name: Zip
       working-directory: "./out"
+      run: |
+
+        7z a -tzp linux-x64.zip ./linux-x64/*
+        
+        7z a -tzp win-x64.zip ./win-x64/*       
+
+    - name: Package
       run: |
         mkdir "${{ env.APP_NAME }}-${{ env.PACKAGE_VERSION }}/"
         
@@ -54,10 +61,6 @@ jobs:
       
         gh release list
 
-        zip -v
-
-        # 7z -v
-        
         # echo "run id:"
         # echo $GITHUB_RUN_ID
         gh release create v0.0.3 --target main --generate-notes --draft --latest=false ${{ env.APP_NAME }}-${{ env.PACKAGE_VERSION }}/*
