@@ -37,9 +37,9 @@ jobs:
       working-directory: "./out"
       run: |
 
-        7z a -tzp linux-x64.zip ./linux-x64/*
+        7z a linux-x64 ./linux-x64/*
         
-        7z a -tzp win-x64.zip ./win-x64/*       
+        7z a win-x64 ./win-x64/*       
 
     - name: Package
       run: |
