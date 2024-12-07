@@ -43,12 +43,12 @@ jobs:
         7z a linux-x64 ./linux-x64/*
         zip -r linux-x64.zip linux-x64 -x ./linux-x64/*
 
-        cp -a ./out/linux-x64.* ../${{ env.APP_NAME }}-${{ env.PACKAGE_VERSION }}/linux-x64/
+        cp -a ./linux-x64.* ../${{ env.APP_NAME }}-${{ env.PACKAGE_VERSION }}/linux-x64/
 
         7z a win-x64 ./win-x64/*
         zip -r win-x64.zip win-x64 -x ./win-x64/*
 
-        cp -a ./out/win-x64.* ../${{ env.APP_NAME }}-${{ env.PACKAGE_VERSION }}/win-x64/
+        cp -a ./win-x64.* ../${{ env.APP_NAME }}-${{ env.PACKAGE_VERSION }}/win-x64/
     
     - name: Upload
       uses: actions/upload-artifact@v4
