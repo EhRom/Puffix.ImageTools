@@ -82,9 +82,8 @@ public class ChangeImageColorService(IConfiguration configuration, IFileService 
         using SKPaint paint = new SKPaint
         {
             IsAntialias = true,
-            FilterQuality = SKFilterQuality.High
         };
-
+        
         // draw the source bitmap over the white
         canvas.DrawBitmap(image, info.Rect, paint);
 
