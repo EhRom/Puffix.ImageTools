@@ -38,16 +38,16 @@ jobs:
       run: |
 
         7z a linux-x64 ./linux-x64/*
-        
-        7z a win-x64 ./win-x64/*       
+        7z a win-x64 ./win-x64/*
+
+        ls -R        
 
     - name: Package
       run: |
         mkdir "${{ env.APP_NAME }}-${{ env.PACKAGE_VERSION }}/"
-        
 
-        cp -a ./linux-x64/. ${{ env.APP_NAME }}-${{ env.PACKAGE_VERSION }}/linux-x64/
-        cp -a ./win-x64/. ${{ env.APP_NAME }}-${{ env.PACKAGE_VERSION }}/win-x64/
+        cp -a ./out/linux-x64/. ${{ env.APP_NAME }}-${{ env.PACKAGE_VERSION }}/linux-x64/
+        cp -a ./out/win-x64/. ${{ env.APP_NAME }}-${{ env.PACKAGE_VERSION }}/win-x64/
 
     - name: Upload
       uses: actions/upload-artifact@v4
