@@ -35,16 +35,16 @@ jobs:
 
     - name: Package
       run: |
-        mkdir "${{ env.APP_NAME }}-package-${{ env.PACKAGE_VERSION }}/"
+        mkdir "${{ env.APP_NAME }}-${{ env.PACKAGE_VERSION }}/"
         
-        cp -a ./out/linux-x64/. ${{ env.APP_NAME }}-package-${{ env.PACKAGE_VERSION }}/linux-x64/
-        cp -a ./out/win-x64/. ${{ env.APP_NAME }}-package-${{ env.PACKAGE_VERSION }}/win-x64/
+        cp -a ./out/linux-x64/. ${{ env.APP_NAME }}-${{ env.PACKAGE_VERSION }}/linux-x64/
+        cp -a ./out/win-x64/. ${{ env.APP_NAME }}-${{ env.PACKAGE_VERSION }}/win-x64/
 
     - name: Upload
       uses: actions/upload-artifact@v4
       with: 
-        name: ${{ env.APP_NAME }}-package-${{ env.PACKAGE_VERSION }}
-        path: '${{ env.APP_NAME }}-package-${{ env.PACKAGE_VERSION }}'
+        name: ${{ env.APP_NAME }}-${{ env.PACKAGE_VERSION }}
+        path: '${{ env.APP_NAME }}-${{ env.PACKAGE_VERSION }}'
 
     - name: Create release
       run: |
@@ -54,10 +54,11 @@ jobs:
 
         zip -v
 
+        7z -v
         
         # echo "run id:"
         # echo $GITHUB_RUN_ID
-        # # gh release create v0.0.2 --target main --generate-notes --latest=false ${{ env.APP_NAME }}-package-${{ env.PACKAGE_VERSION }}/*
+        gh release create v0.0.3 --target main --generate-notes --draft --latest=false ${{ env.APP_NAME }}-${{ env.PACKAGE_VERSION }}/*
 
         # # ls -R
 
