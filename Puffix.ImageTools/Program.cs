@@ -25,9 +25,8 @@ catch (Exception error)
     ConsoleHelper.WriteError("Error while loading configuration.");
     ConsoleHelper.WriteError(error);
 
-    ConsoleHelper.Write("Press key Q to quit, any other key to continue.");
-    Console.ReadKey();
-    ConsoleHelper.ClearLastCharacters();
+    ConsoleHelper.Write("Press any key to quit.");
+    ConsoleHelper.ReadKey();
     return;
 }
 
@@ -38,9 +37,9 @@ do
     ConsoleHelper.Write("- S to convert a SVG to PNG file");
     ConsoleHelper.Write("- C to change the colors of a PNG image");
     ConsoleHelper.Write("- Q to quit");
-    consoleKey = Console.ReadKey().Key;
-    ConsoleHelper.ClearLastCharacters(1);
-    ConsoleHelper.ClearLastLines(3);
+    consoleKey = ConsoleHelper.ReadKey();
+    
+    ConsoleHelper.ClearLastLines(4);
 
     ConsoleHelper.WriteNewLine(2);
 
