@@ -27,27 +27,30 @@ jobs:
     - name: Build
       run: dotnet build ./Puffix.ImageTools/Puffix.ImageTools.csproj --configuration 'Release'
       
-    - name: Publish
-      run: dotnet publish ./Puffix.ImageTools/Puffix.ImageTools.csproj --runtime linux-x64 --self-contained true --output './out/linux-x64'
-      
-    - name: Publish
-      run: dotnet publish ./Puffix.ImageTools/Puffix.ImageTools.csproj --runtime win-x64 --self-contained true --output './out/win-x64'
-
-    - name: Zip
-      working-directory: "./out"
+    - name: Publish for Linux
       run: |
+        dotnet publish ./Puffix.ImageTools/Puffix.ImageTools.csproj --runtime linux-x64 --self-contained true --output './out/linux-x64'
+
+        cd ./out/
 
         7z a linux-x64 ./linux-x64/*
-        7z a win-x64 ./win-x64/*
+        zip -r linux-x64.zip linux-x64 -x ./linux-x64/*
 
-        ls -R        
+    - name: Publish for Windows
+      run: |
+        dotnet publish ./Puffix.ImageTools/Puffix.ImageTools.csproj --runtime win-x64 --self-contained true --output './out/win-x64'
+
+        cd ./out/
+
+        7z a win-x64 ./win-x64/*
+        zip -r win-x64.zip win-x64 -x ./win-x64/*
 
     - name: Package
       run: |
         mkdir "${{ env.APP_NAME }}-${{ env.PACKAGE_VERSION }}/"
 
-        cp -a ./out/linux-x64/. ${{ env.APP_NAME }}-${{ env.PACKAGE_VERSION }}/linux-x64/
-        cp -a ./out/win-x64/. ${{ env.APP_NAME }}-${{ env.PACKAGE_VERSION }}/win-x64/
+        cp -a ./out/linux-x64.* ${{ env.APP_NAME }}-${{ env.PACKAGE_VERSION }}/linux-x64/
+        cp -a ./out/win-x64.* ${{ env.APP_NAME }}-${{ env.PACKAGE_VERSION }}/win-x64/
 
     - name: Upload
       uses: actions/upload-artifact@v4
@@ -56,18 +59,9 @@ jobs:
         path: '${{ env.APP_NAME }}-${{ env.PACKAGE_VERSION }}'
 
     - name: Create release
-      run: |
-        gh --version
-      
-        gh release list
-
-        # echo "run id:"
-        # echo $GITHUB_RUN_ID
-        gh release create v0.0.3 --target main --generate-notes --draft --latest=false ${{ env.APP_NAME }}-${{ env.PACKAGE_VERSION }}/*
-
-        # # ls -R
-
-        #--generate-notes ${{ env.APP_NAME }}-package-${{ env.PACKAGE_VERSION }}/*
       env:
         GH_TOKEN: ${{ secrets.PFX_IMAGES_GH_CLI_TOKEN }}
+      run: |
+        gh release create v0.0.3 --target main --generate-notes --draft --latest=false ${{ env.APP_NAME }}-${{ env.PACKAGE_VERSION }}/*-x64.*
+
      
