@@ -62,12 +62,12 @@ jobs:
       env:
         GH_TOKEN: ${{ secrets.PFX_IMAGES_GH_CLI_TOKEN }}
       run: |
-        gh release create v0.0.3 --target main --generate-notes --draft 
+        gh release create v${{ env.PACKAGE_VERSION }}-$GITHUB_RUN_ID --target main --generate-notes --draft 
         
-        gh release upload v0.0.3 ${{ env.APP_NAME }}-${{ env.PACKAGE_VERSION }}/linux-x64.zip
-        gh release upload v0.0.3 ${{ env.APP_NAME }}-${{ env.PACKAGE_VERSION }}/linux-x64.7z
-        gh release upload v0.0.3 ${{ env.APP_NAME }}-${{ env.PACKAGE_VERSION }}/win-x64.zip
-        gh release upload v0.0.3 ${{ env.APP_NAME }}-${{ env.PACKAGE_VERSION }}/win-x64.7z
+        gh release upload v${{ env.PACKAGE_VERSION }}-$GITHUB_RUN_ID ${{ env.APP_NAME }}-${{ env.PACKAGE_VERSION }}/linux-x64.zip
+        gh release upload v${{ env.PACKAGE_VERSION }}-$GITHUB_RUN_ID ${{ env.APP_NAME }}-${{ env.PACKAGE_VERSION }}/linux-x64.7z
+        gh release upload v${{ env.PACKAGE_VERSION }}-$GITHUB_RUN_ID ${{ env.APP_NAME }}-${{ env.PACKAGE_VERSION }}/win-x64.zip
+        gh release upload v${{ env.PACKAGE_VERSION }}-$GITHUB_RUN_ID ${{ env.APP_NAME }}-${{ env.PACKAGE_VERSION }}/win-x64.7z
         
 
      
