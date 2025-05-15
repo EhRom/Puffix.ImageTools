@@ -14,7 +14,7 @@ public class ConvertSvgToPngService(IConfiguration configuration, IFileService f
         string sucessMessage = "The file has been converted from SVG to PNG";
         string errorMessage = "converting a SVG file to a PNG image file";
 
-        ProcessImages(SVG_FILE_EXTENSION, actionMessage, sucessMessage, errorMessage);
+        ProcessImages(SVG_FILE_EXTENSION, PNG_FILE_EXTENSION, actionMessage, sucessMessage, errorMessage);
     }
 
     protected override void ProcessImage(string inImagePath, string outImagePath)

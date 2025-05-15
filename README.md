@@ -7,8 +7,9 @@
 Two actions are available:
 
 - Convert SVG images to PNG image files
-- Change the foregound color of an image to a single color, and eventually the background color.
-
+- Change the foregound color of an image to a **single color**, and eventually the background color.
+- Convert PNG images to Icons
+ 
 The settings of this console application are available in the `appSettings.json` file:
 
 |Parameter|Type|Description|
@@ -18,4 +19,4 @@ The settings of this console application are available in the `appSettings.json`
 |**overwriteFiles**|`boolean`|Indicate whether to overwrite existing output files. E.g. `true`|
 |**generateUniqueFileNames**|`boolean`|Indicate whether to create a unique file name. E.g. `true`|
 |**foregroundColor**|`string` / color scheme|Color of the unique foreground color. E.g. `#101923`|
-|**backgroundColor**|`string` / color scheme|Color of the background color. E.g. `#FF4500`|
+|**backgroundColor**|`string` / color scheme|Color of the background color. E.g. `#FF3500`|

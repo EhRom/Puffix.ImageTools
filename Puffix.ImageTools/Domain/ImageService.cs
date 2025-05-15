@@ -12,6 +12,7 @@ public abstract class ImageService(IConfiguration configuration, IFileService fi
 {
     protected const string SVG_FILE_EXTENSION = "svg";
     protected const string PNG_FILE_EXTENSION = "png";
+    protected const string ICO_FILE_EXTENSION = "ico";
 
     private const string BASE_SEARCH_PATTERN = "*.";
 
@@ -42,13 +43,13 @@ public abstract class ImageService(IConfiguration configuration, IFileService fi
     protected bool overwriteFiles => overwriteFilesLazy.Value;
     protected bool generateUniqueFileNames => generateUniqueFileNamesLazy.Value;
 
-    protected void ProcessImages(string fileExtension, string actionMessage, string sucessMessage, string errorMessage)
+    protected void ProcessImages(string inFileExtension, string outFileExtension, string actionMessage, string sucessMessage, string errorMessage)
     {
-        string searchPattern = $"{BASE_SEARCH_PATTERN}{fileExtension}";
+        string searchPattern = $"{BASE_SEARCH_PATTERN}{inFileExtension}";
 
         Stopwatch stopwatch = Stopwatch.StartNew();
 
-        ConsoleHelper.Write($"List the {fileExtension} files in the '{inputDirectoryPath}' directory.");
+        ConsoleHelper.Write($"List the {inFileExtension} files in the '{inputDirectoryPath}' directory.");
 
         IEnumerable<string> filesToConvert = fileService.ListFiles(inputDirectoryPath, searchPattern);
 
@@ -57,7 +58,7 @@ public abstract class ImageService(IConfiguration configuration, IFileService fi
         {
             try
             {
-                string outFilePath = fileService.BuildNewFilePath(fileToConvert, outputDirectoryPath, PNG_FILE_EXTENSION, generateUniqueFileNames);
+                string outFilePath = fileService.BuildNewFilePath(fileToConvert, outputDirectoryPath, outFileExtension, generateUniqueFileNames);
 
                 if (!generateUniqueFileNames && !overwriteFiles && fileService.ExistsFile(outFilePath))
                     throw new Exception($"The file {outFilePath} already exists (set the 'overwriteFiles' option or 'generateUniqueFileNames' option to true to overwrite files, ).");

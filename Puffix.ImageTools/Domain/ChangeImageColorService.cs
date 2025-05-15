@@ -39,7 +39,7 @@ public class ChangeImageColorService(IConfiguration configuration, IFileService 
         string sucessMessage = "The colors of the PNG image file have been converted";
         string errorMessage = "changing the colors of a PNG image file";
 
-        ProcessImages(PNG_FILE_EXTENSION, actionMessage, sucessMessage, errorMessage);
+        ProcessImages(PNG_FILE_EXTENSION, PNG_FILE_EXTENSION, actionMessage, sucessMessage, errorMessage);
     }
 
     protected override void ProcessImage(string inImagePath, string outImagePath)

@@ -35,7 +35,8 @@ do
 {
     ConsoleHelper.Write("Select action :");
     ConsoleHelper.Write("- S to convert a SVG to PNG file");
-    ConsoleHelper.Write("- C to change the colors of a PNG image");
+    ConsoleHelper.Write("- C to change the colors of a PNG (monochrome) image");
+    ConsoleHelper.Write("- I to create an icon from a PNG image (only on windows)");
     ConsoleHelper.Write("- Q to quit");
     consoleKey = ConsoleHelper.ReadKey();
     
@@ -61,6 +62,16 @@ do
         ConsoleHelper.WriteNewLine();
 
         changeImageColorService.ChangePngImageColor();
+        ConsoleHelper.WriteNewLine(2);
+    }
+    else if (consoleKey == ConsoleKey.I)
+    {
+        ConsoleHelper.WriteInfo("Create icons from PNG images");
+
+        IConvertPngToIconService convertPngToIconService = container.Resolve<IConvertPngToIconService>();
+        ConsoleHelper.WriteNewLine();
+
+        convertPngToIconService.ConvertPngToIcon();
         ConsoleHelper.WriteNewLine(2);
     }
 
